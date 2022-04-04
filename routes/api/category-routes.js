@@ -1,17 +1,15 @@
 const router = require('express').Router();
 const { Category, Product } = require('../../models');
-const { create } = require('../../models/Product');
 
 // The `/api/categories` endpoint
 // database = dbData
 //Find All
 router.get('/', (req, res) => {
   Category.findAll({
-    attributes: ['id', 'category_name'],
     include: [
       {
         model: Product,
-        attributes: ['id', 'product_name', 'price', 'stock']
+        attributes: ['id', 'product_name', 'price', 'stock', 'category_id']
       }
     ]
   }).then(dbData => res.json(dbData))
@@ -26,14 +24,13 @@ router.get('/', (req, res) => {
 router.get('/:id', (req, res) => {
   Category.findOne({
     where: { id: req.params.id },
-    attributes: ['id', 'category_name'],
     include: [{
       model: Product,
-      attributes: ['id', 'product_name', 'price', 'stock']
+      attributes: ['id', 'product_name', 'price', 'stock', 'category_id']
     }]
   }).then(dbData => {
     if (!dbData) {
-      res.status(400).json({ message: 'No category found' });
+      res.status(404).json({ message: 'No Category Associated With ID' });
       return;
     }
     res.json(dbData);
@@ -64,7 +61,7 @@ router.post('/', (req, res) => {
     })
     .then(dbData => {
       if(!dbData) {
-        res.status(400).json({ message: 'No category found' });
+        res.status(404).json({ message: 'No Category Associated With ID' });
         return;
       }
       res.json(dbData);
@@ -83,7 +80,7 @@ router.post('/', (req, res) => {
     })
     .then(dbData => {
       if(!dbData) {
-        res.status(400).json({ message: 'No category found' });
+        res.status(404).json({ message: 'No Category Associated With ID' });
         return;
       }
       res.json(dbData);
