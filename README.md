@@ -12,44 +12,38 @@ AS A manager at an internet retail company
 I WANT a back end for my e-commerce website that uses the latest technologies
 SO THAT my company can compete with other e-commerce companies
 ```
-## Acceptance Criteria
-```
-GIVEN a functional Express.js API
-WHEN I add my database name, MySQL username, and MySQL password to an environment variable file
-THEN I am able to connect to a database using Sequelize
-WHEN I enter schema and seed commands
-THEN a development database is created and is seeded with test data
-WHEN I enter the command to invoke the application
-THEN my server is started and the Sequelize models are synced to the MySQL database
-WHEN I open API GET routes in Insomnia for categories, products, or tags
-THEN the data for each of these routes is displayed in a formatted JSON
-WHEN I test API POST, PUT, and DELETE routes in Insomnia
-THEN I am able to successfully create, update, and delete data in my database
-```
-## Packages
-______________
-
-Packages requried to be installed:
+## Packages Required
 
 ```
-npm init --y
 npm i express
-npm install --save mysql2
+npm i mysql2
+npm i sequelize
+npm i dotenv
 ```
+<p><a href="https://nodejs.org/">Node.js</a></p>
+<p><a href="https://www.npmjs.com/package/express">Express</a></p>
+<p><a href="https://www.npmjs.com/package/mysql">MySQL</a></p>
+<p><a href="https://www.npmjs.com/package/dotenv">Dotenv</a></p>
+<p><a href="https://www.npmjs.com/package/sequelize">MySQL</a></p>
+
+## Deployment:
+
+When deplpoying this application, start by adding a .env file to the root of the application:
+
+```
+DB_NAME='ecommerce_db'
+DB_USER='root'
+DB_PW='root'
+```
+* Start MySQL with `mysql -u root -p`
+* Type `source db/schema.sql` to initiate database
+* Once source database runs, exit MySQL and run `npm run seed`
+* To start the application run `npm start`
 
 ## Demo Video
 ________
 
-
-## Technology:
-________________________
-<p><a href="https://nodejs.org/">Node.js</a></p>
-<p><a href="https://www.npmjs.com/package/express">Express</a></p>
-<p><a href="https://www.npmjs.com/package/mysql">MySQL</a></p>
-
-
 ## GitHub
-________________
 
 GitHub https://github.com/BDJS0033/E-commerce
 
