@@ -10,19 +10,19 @@ router.get('/', (req, res) => {
     include: [
       {
         model: Category,
-        attributes: ['category_name']
+        attributes: ['id', 'category_name']
       },
       {
         model: Tag,
-        attributes: ['tag_name'],
-        through: ProductTag,
+        attributes: ['id', 'tag_name']
       }
     ]
-  }).then(dbProductData => res.json(dbProductData))
+  })
+    .then(dbProductData => res.json(dbProductData))
     .catch(err => {
       console.log(err);
       res.status(500).json(err);
-    })
+    });
 });
 
 // get one product
@@ -41,8 +41,7 @@ router.get('/:id', (req, res) => {
       },
       {
         model: Tag,
-        attributes: ['id', 'tag_name'],
-        through: ProductTag,
+        attributes: ['id', 'tag_name']
       }
     ]
   }).then(dbProductData => {
