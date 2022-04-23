@@ -2,7 +2,7 @@ const router = require('express').Router();
 const { Category, Product } = require('../../models');
 
 // The `/api/categories` endpoint
-// database = dbData
+// database = dbCategory
 //Find All
 router.get('/', (req, res) => {
   Category.findAll({
@@ -12,7 +12,7 @@ router.get('/', (req, res) => {
         attributes: ['id', 'product_name', 'price', 'stock', 'category_id']
       }
     ]
-  }).then(dbData => res.json(dbData))
+  }).then(dbCategory => res.json(dbCategory))
     .catch(err => {
       console.log(err);
       res.status(500).json(err);
@@ -28,12 +28,12 @@ router.get('/:id', (req, res) => {
       model: Product,
       attributes: ['id', 'product_name', 'price', 'stock', 'category_id']
     }]
-  }).then(dbData => {
-    if (!dbData) {
+  }).then(dbCategory => {
+    if (!dbCategory) {
       res.status(404).json({ message: 'No Category Associated With ID' });
       return;
     }
-    res.json(dbData);
+    res.json(dbCategory);
   })
   .catch(err => {
     console.log(err);
@@ -47,7 +47,7 @@ router.post('/', (req, res) => {
   Category.create({
     category_name: req.body.category_name
   })
-  .then(dbData => res.json(dbData))
+  .then(dbCategory => res.json(dbCategory))
   .catch(err => {
     console.log(err);
     res.status(500).json(err);
@@ -59,12 +59,12 @@ router.post('/', (req, res) => {
     Category.update(res.body, {
       where: { id: res.params.id }
     })
-    .then(dbData => {
-      if(!dbData) {
+    .then(dbCategory => {
+      if(!dbCategory) {
         res.status(404).json({ message: 'No Category Associated With ID' });
         return;
       }
-      res.json(dbData);
+      res.json(dbCategory);
     })
     .catch(err => {
       console.log(err);
@@ -78,12 +78,12 @@ router.post('/', (req, res) => {
     Category.destroy({
       where: { id: req.params.id }
     })
-    .then(dbData => {
-      if(!dbData) {
+    .then(dbCategory => {
+      if(!dbCategory) {
         res.status(404).json({ message: 'No Category Associated With ID' });
         return;
       }
-      res.json(dbData);
+      res.json(dbCategory);
     })
     .catch(err => {
       console.log(err);

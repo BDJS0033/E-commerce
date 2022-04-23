@@ -24,7 +24,7 @@ npm i dotenv
 <p><a href="https://www.npmjs.com/package/express">Express</a></p>
 <p><a href="https://www.npmjs.com/package/mysql">MySQL</a></p>
 <p><a href="https://www.npmjs.com/package/dotenv">Dotenv</a></p>
-<p><a href="https://www.npmjs.com/package/sequelize">MySQL</a></p>
+<p><a href="https://www.npmjs.com/package/sequelize">Sequelize</a></p>
 
 ## Deployment:
 

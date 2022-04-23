@@ -5,19 +5,20 @@ const { Product, Category, Tag, ProductTag } = require('../../models');
 
 // get all products
 router.get('/', (req, res) => {
-  Product.findOne({
+  Product.findAll({
     attributes: ['id', 'product_name', 'price', 'stock', 'category_id'],
     include: [
       {
         model: Category,
-        attributes: ['id', 'category_name']
+        attributes: ['category_name']
       },
       {
         model: Tag,
-        attributes: ['id', 'tag_name']
+        attributes: ['tag_name'],
+        through: ProductTag,
       }
     ]
-  }).then(dbData => res.json(dbData))
+  }).then(dbProductData => res.json(dbProductData))
     .catch(err => {
       console.log(err);
       res.status(500).json(err);
@@ -40,15 +41,16 @@ router.get('/:id', (req, res) => {
       },
       {
         model: Tag,
-        attributes: ['id', 'tag_name']
+        attributes: ['id', 'tag_name'],
+        through: ProductTag,
       }
     ]
-  }).then(dbData => {
-    if (!dbData) {
+  }).then(dbProductData => {
+    if (!dbProductData) {
       res.status(404).json({ message: 'No Product Associated With ID' });
       return;
     }
-    res.json(dbData);
+    res.json(dbProductData);
   })
   .catch(err => {
     console.log(err);
@@ -135,12 +137,12 @@ router.delete('/:id', (req, res) => {
   Product.destroy({
     where: { id: req.params.id }
   })
-  .then(dbData => {
-    if(!dbData) {
+  .then(dbProductData => {
+    if(!dbProductData) {
       res.status(404).json({ message: 'No Product Associated With ID' });
       return;
     }
-    res.json(dbData);
+    res.json(dbProductData);
   })
   .catch(err => {
     console.log(err);
