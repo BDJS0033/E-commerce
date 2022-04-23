@@ -42,6 +42,7 @@ DB_PW='root'
 
 ## Demo Video
 ________
+https://loom.com/share/6709cdba257a45158ec938a50e855d2e
 
 ## GitHub
 

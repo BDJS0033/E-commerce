@@ -2,7 +2,7 @@ const router = require('express').Router();
 const { Category, Product } = require('../../models');
 
 // The `/api/categories` endpoint
-// database = dbCategory
+// database = dbData
 //Find All
 router.get('/', (req, res) => {
   Category.findAll({
@@ -29,11 +29,11 @@ router.get('/:id', (req, res) => {
       attributes: ['id', 'product_name', 'price', 'stock', 'category_id']
     }]
   }).then(dbCategory => {
-    if (!dbCategory) {
+    if (!dbCategory ) {
       res.status(404).json({ message: 'No Category Associated With ID' });
       return;
     }
-    res.json(dbCategory);
+    res.json(dbCategory );
   })
   .catch(err => {
     console.log(err);
@@ -47,7 +47,7 @@ router.post('/', (req, res) => {
   Category.create({
     category_name: req.body.category_name
   })
-  .then(dbCategory => res.json(dbCategory))
+  .then(dbCategory  => res.json(dbCategory ))
   .catch(err => {
     console.log(err);
     res.status(500).json(err);
@@ -56,15 +56,17 @@ router.post('/', (req, res) => {
 
   //update a category by its 'id' value
   router.put('/:id', (req, res) => {
-    Category.update(res.body, {
-      where: { id: res.params.id }
+    Category.update(req.body, {
+      where: {
+        id: req.params.id
+      }
     })
-    .then(dbCategory => {
-      if(!dbCategory) {
+    .then(dbCategory  => {
+      if(!dbCategory ) {
         res.status(404).json({ message: 'No Category Associated With ID' });
         return;
       }
-      res.json(dbCategory);
+      res.json(dbCategory );
     })
     .catch(err => {
       console.log(err);
@@ -78,12 +80,12 @@ router.post('/', (req, res) => {
     Category.destroy({
       where: { id: req.params.id }
     })
-    .then(dbCategory => {
-      if(!dbCategory) {
+    .then(dbCategory  => {
+      if(!dbCategory ) {
         res.status(404).json({ message: 'No Category Associated With ID' });
         return;
       }
-      res.json(dbCategory);
+      res.json(dbCategory );
     })
     .catch(err => {
       console.log(err);
